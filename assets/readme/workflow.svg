@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="330" viewBox="0 0 1200 330" role="img" aria-labelledby="title desc">
+  <title id="title">The flow of one task</title>
+  <desc id="desc">Six stages: explore (0–2 agents), spec (OpenSpec), human approval gate, TDD code written by the main Claude, verify with real gates, review with 1, 2 or 5–8 agents, then archive and update the brain.</desc>
+
+  <rect width="1200" height="330" rx="24" fill="#0B0D10"/>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18" fill="#7D848F">
+    <text x="56" y="52">ONE TASK, END TO END</text>
+    <text x="1144" y="52" text-anchor="end">agents per stage</text>
+  </g>
+  <line x1="56" y1="72" x2="1144" y2="72" stroke="#22262D" stroke-width="2"/>
+
+  <!-- connector -->
+  <line x1="100" y1="160" x2="1100" y2="160" stroke="#2E333B" stroke-width="3"/>
+
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" text-anchor="middle">
+    <!-- 1 explore -->
+    <circle cx="112" cy="160" r="14" fill="#12151A" stroke="#C9CCD1" stroke-width="3"/>
+    <text x="112" y="122" font-size="24" font-weight="700" fill="#F2EFE8">Explore</text>
+    <text x="112" y="208" font-size="20" fill="#C9CCD1">map the code</text>
+    <text x="112" y="240" font-family="ui-monospace, Menlo, monospace" font-size="20" fill="#7D848F">0–2</text>
+
+    <!-- 2 spec -->
+    <circle cx="288" cy="160" r="14" fill="#12151A" stroke="#C9CCD1" stroke-width="3"/>
+    <text x="288" y="122" font-size="24" font-weight="700" fill="#F2EFE8">Spec</text>
+    <text x="288" y="208" font-size="20" fill="#C9CCD1">scenarios</text>
+    <text x="288" y="240" font-family="ui-monospace, Menlo, monospace" font-size="20" fill="#7D848F">OpenSpec</text>
+
+    <!-- 3 gate -->
+    <rect x="410" y="134" width="108" height="52" rx="10" fill="#2A1416" stroke="#E5484D" stroke-width="3"/>
+    <text x="464" y="168" font-size="22" font-weight="800" fill="#FF8A8E">⛔ GATE</text>
+    <text x="464" y="122" font-size="24" font-weight="700" fill="#F2EFE8">You</text>
+    <text x="464" y="208" font-size="20" fill="#C9CCD1">approve spec</text>
+    <text x="464" y="240" font-family="ui-monospace, Menlo, monospace" font-size="20" fill="#7D848F">human</text>
+
+    <!-- 4 code -->
+    <circle cx="640" cy="160" r="14" fill="#12151A" stroke="#F5A524" stroke-width="3"/>
+    <text x="640" y="122" font-size="24" font-weight="700" fill="#F2EFE8">Code</text>
+    <text x="640" y="208" font-size="20" fill="#C9CCD1">test → green</text>
+    <text x="640" y="240" font-family="ui-monospace, Menlo, monospace" font-size="20" fill="#7D848F">0 (+1 per [P])</text>
+
+    <!-- 5 verify -->
+    <circle cx="816" cy="160" r="14" fill="#12151A" stroke="#C9CCD1" stroke-width="3"/>
+    <text x="816" y="122" font-size="24" font-weight="700" fill="#F2EFE8">Verify</text>
+    <text x="816" y="208" font-size="20" fill="#C9CCD1">lint · tests</text>
+    <text x="816" y="240" font-family="ui-monospace, Menlo, monospace" font-size="20" fill="#7D848F">real gates</text>
+
+    <!-- 6 review -->
+    <circle cx="992" cy="160" r="14" fill="#12151A" stroke="#F5A524" stroke-width="3"/>
+    <text x="992" y="122" font-size="24" font-weight="700" fill="#F2EFE8">Review</text>
+    <text x="992" y="208" font-size="20" fill="#C9CCD1">you pick the level</text>
+    <text x="992" y="240" font-family="ui-monospace, Menlo, monospace" font-size="20" fill="#F5A524">1 · 2 · 5–8</text>
+
+    <!-- end -->
+    <text x="1112" y="168" font-size="24" fill="#3FB950" font-weight="800">✓</text>
+  </g>
+
+  <text x="600" y="296" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20" fill="#7D848F">then: archive the change · update the brain · commit/PR only if you ask</text>
+</svg>

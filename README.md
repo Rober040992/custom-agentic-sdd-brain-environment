@@ -1,60 +1,66 @@
-# 🧠 Rober's Agentic Harness
+<p align="center">
+  <img src="./assets/readme/hero.svg" width="100%" alt="agentic sdd brain: a Claude Code harness. A session shows a new change turned into a spec, a stop waiting for human approval, then implementation with all tasks, tests and review passing.">
+</p>
 
-**A personal Claude Code setup that works like a disciplined senior engineer.**
-Specs first, tests first, parallel reviews, and a per-project memory, adapted to each client project without leaving a trace in it.
+A personal **Claude Code** setup for professional delivery on client projects. Claude writes a spec, **waits for your OK**, codes test-first, gets reviewed by parallel agents and remembers each project, all without leaving a trace in the client's repo.
 
-```
-spec ──► ⛔ approval ──► TDD code ──► verify ──► multi-agent review ──► archive
-```
+## Why
 
----
+- **Vague requests become testable specs.** Every change is a list of `WHEN / THEN` scenarios before any code exists.
+- **You stay in control.** Nothing is implemented until you approve the spec, and nothing is committed, pushed or merged unless you ask.
+- **Reviews that catch real bugs.** Up to 8 specialist reviewers run in parallel, and Claude double-checks every serious finding.
+- **No re-reading the repo every session.** A per-project *brain* maps what the project is, how it works and where things live.
+- **Every client is different.** The project's own rules always win; this setup is only the default.
 
-## ✨ What's inside
+## How a task flows
 
-| | Piece | Purpose |
-|---|---|---|
-| 📐 | **SDD with OpenSpec** | Every change starts as a spec with testable scenarios. No code before you approve it. |
-| 🤖 | **14 specialist agents** | Explore, design, test-drive and review, in parallel when it pays off. |
-| 🧠 | **Project brain** | `.claude/brain.md`: a pointer-only map, so Claude doesn't re-read the repo every session. |
-| 🧩 | **Per-project overlay** | Private `CLAUDE.local.md` + `settings.local.json`, hidden from git. Projects never mix. |
-| 🛡️ | **Safety rails** | Asks before any DB access · blocks secrets, force-push and merges · auto-formats. |
+<p align="center">
+  <img src="./assets/readme/workflow.svg" width="100%" alt="Flow of one task: explore with 0–2 agents, write the spec with OpenSpec, human approval gate, code test-first, verify with real lint and tests, review with 1, 2 or 5–8 agents chosen with you, then archive and update the brain.">
+</p>
 
-## 🚀 Daily use
+The code itself is written by the main Claude, which has the full context. Agents are used where an independent view helps: exploring, parallel `[P]` tasks and review.
+
+## Daily use
 
 | Say | What happens |
 |---|---|
 | `prepara este proyecto` | One-time setup: stack, specs location, brain, private config |
 | `nuevo change: <idea>` | Explore → spec → **stops for your approval** |
 | `implementa el change` | Task by task: failing test → code → green |
-| `cierra el change` | Verify → review (1, 2 or 5–8 agents, you choose) → archive |
-| `revisa la rama` | Multi-agent review of the current branch |
-| `lee cerebro` | Project memory status and summary |
+| `cierra el change` | Verify → review → archive → update the brain |
+| `revisa la rama` | Review of the current branch at a level you choose |
+| `lee cerebro` | Project memory: status and summary |
 
-## 🏗️ How it's layered
+## What's inside
+
+| | |
+|---|---|
+| 📐 **OpenSpec** | Spec-Driven Development: proposal, scenarios, design, tasks |
+| 🤖 **14 agents** | Explorer, architect, TDD guide, build fixers and 8 reviewers |
+| 🧠 **Brain** | `.claude/brain.md`: pointers only, freshness checked against git on every session start |
+| 🧩 **Private overlay** | `CLAUDE.local.md` + `settings.local.json`, hidden through `.git/info/exclude` |
+| 🛡️ **Safety rails** | Asks before any DB access (CLI or MCP) · blocks secrets, force-push and merges · auto-format |
 
 ```
-~/.claude/          global defaults (rules, agents, skills, hooks)
-   ▲ overridden by
-<project>/          CLAUDE.md + team conventions   (theirs, untouched)
-   ▲ extended by
-<project>/          CLAUDE.local.md · .claude/settings.local.json · .claude/brain.md
-                    (mine, hidden via .git/info/exclude)
+~/.claude/       global defaults: rules, agents, skills, hooks
+<project>/       CLAUDE.md + team conventions        ← always wins
+<project>/       CLAUDE.local.md · .claude/brain.md  ← private, never committed
 ```
 
-**The project always wins.** The global config is just a sensible default.
+## Rebuild it anywhere
 
-## 🔁 Rebuild anywhere
-
-Give **`rober-agentic-environment.md`** to any Claude Code session:
+Give [`docs/rober-agentic-environment.md`](docs/rober-agentic-environment.md) to any Claude Code session and say:
 
 > *Build this environment on my machine following the Rebuild Instructions.*
 
 It contains the full explanation and every file verbatim.
 
-## 🧱 Built on
+## Limits
 
-[OpenSpec](https://github.com/Fission-AI/OpenSpec) · curated parts of [ECC](https://github.com/affaan-m/ECC) · [Modern Web Guidance](https://github.com/googlechrome/modern-web-guidance) (opt-in per project)
+- Brain freshness is tracked against git commits and uncommitted files, not editor buffers.
+- DB protection is pattern-based: custom scripts with unusual names rely on the written rule, not on a hard block.
+- Built for a TypeScript / React / Node default stack; other stacks use the project's own rules.
 
 ---
 
-<sub>Personal setup · local-only repo · human-in-the-loop by design</sub>
+<sub>Built on [OpenSpec](https://github.com/Fission-AI/OpenSpec) · curated parts of [ECC](https://github.com/affaan-m/ECC) · [Modern Web Guidance](https://github.com/googlechrome/modern-web-guidance) (opt-in) · README visuals made following [beautify-github-readme](https://github.com/oil-oil/beautify-github-readme)</sub>

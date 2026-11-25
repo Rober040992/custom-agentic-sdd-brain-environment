@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="440" viewBox="0 0 1200 440" role="img" aria-labelledby="title desc">
+  <title id="title">custom-agentic-sdd-brain-environment</title>
+  <desc id="desc">A personal Claude Code harness: spec first, human approval gate, test-driven code, multi-agent review and a per-project brain. Right side shows a real session using the harness phrases.</desc>
+
+  <rect width="1200" height="440" rx="24" fill="#0B0D10"/>
+  <line x1="56" y1="76" x2="1144" y2="76" stroke="#22262D" stroke-width="2"/>
+
+  <!-- metadata row -->
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18" fill="#7D848F">
+    <text x="56" y="56">CLAUDE CODE · HARNESS</text>
+    <text x="1144" y="56" text-anchor="end">spec → gate → code → review</text>
+  </g>
+
+  <!-- title block -->
+  <g id="title-block" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+    <text x="56" y="160" font-size="64" font-weight="800" fill="#F2EFE8" letter-spacing="-1.5">agentic</text>
+    <text x="56" y="232" font-size="64" font-weight="800" fill="#F5A524" letter-spacing="-1.5">sdd</text>
+    <text x="176" y="232" font-size="64" font-weight="800" fill="#F2EFE8" letter-spacing="-1.5">brain</text>
+    <text x="56" y="290" font-size="24" fill="#C9CCD1">Claude Code that ships like a senior engineer:</text>
+    <text x="56" y="324" font-size="24" fill="#C9CCD1">specs first, tests first, parallel reviews,</text>
+    <text x="56" y="358" font-size="24" fill="#C9CCD1">and a memory for every project.</text>
+  </g>
+
+  <!-- project proof: a real session -->
+  <g id="project-proof" transform="translate(600 104)" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">
+    <rect width="544" height="292" rx="16" fill="#12151A" stroke="#262A31" stroke-width="2"/>
+    <circle cx="26" cy="24" r="6" fill="#3A3F47"/>
+    <circle cx="46" cy="24" r="6" fill="#3A3F47"/>
+    <circle cx="66" cy="24" r="6" fill="#3A3F47"/>
+    <line x1="0" y1="46" x2="544" y2="46" stroke="#262A31" stroke-width="2"/>
+
+    <text x="26" y="84" font-size="20" fill="#F5A524">❯ <tspan fill="#F2EFE8">nuevo change: favorites</tspan></text>
+    <text x="26" y="116" font-size="20" fill="#7D848F">  spec · 5 scenarios · 6 tasks</text>
+
+    <rect x="22" y="132" width="236" height="34" rx="8" fill="#2A1416" stroke="#E5484D" stroke-width="2"/>
+    <text x="36" y="156" font-size="20" fill="#FF8A8E" font-weight="700">⛔ waiting for OK</text>
+
+    <text x="26" y="200" font-size="20" fill="#F5A524">❯ <tspan fill="#F2EFE8">implementa el change</tspan></text>
+    <text x="26" y="232" font-size="20" fill="#3FB950">  ✓ tasks 6/6</text>
+    <text x="236" y="232" font-size="20" fill="#3FB950">✓ tests 42/42</text>
+    <text x="26" y="264" font-size="20" fill="#3FB950">  ✓ review: 1 HIGH fixed</text>
+  </g>
+</svg>
