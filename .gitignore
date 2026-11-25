@@ -1,0 +1,42 @@
+# macOS
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*~
+
+# Secrets (never commit)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+
+# Claude Code runtime / private data (if ~/.claude files are ever copied here)
+.claude/settings.local.json
+CLAUDE.local.md
+projects/
+sessions/
+session-env/
+shell-snapshots/
+history.jsonl
+cache/
+backups/
+downloads/
+state/
+plugins/
+policy-limits*
+remote-settings*
+*.bak
+*.pre-*
+
+# Temp / logs
+*.log
+tmp/
+node_modules/
