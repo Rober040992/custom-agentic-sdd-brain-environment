@@ -74,19 +74,19 @@ Precedence: **project rules / team conventions > AGENTS.local.md > global AGENTS
 
 | Situation | Say | What happens |
 |---|---|---|
-| First time in a project | "prepara este proyecto" | `project-setup`: detect stack, choose where specs live, ask about Modern Web Guidance, create the private overlay and the brain |
-| New feature / bug fix | "nuevo change: <description>" | `sdd`: explore → propose → **STOP for approval** |
-| Approved spec | "implementa el change" | TDD implementation, parallel agents for `[P]` tasks |
-| Finish | "cierra el change" | verify → multi-agent review → archive → update brain |
-| Review a branch | "revisa la rama" | `delivery-review` (1, 2 or 5–8 reviewers, chosen with you) |
-| Check project memory | "lee cerebro" | brain status and summary; asks whether to re-read the repo if it is stale |
+| First time in a project | `setup` | `project-setup`: detect stack, choose where specs live, ask about Modern Web Guidance, create the private overlay and the brain |
+| New feature / bug fix | `spec <description>` | `sdd`: explore → propose → **STOP for approval** |
+| Approved spec | `build` | TDD implementation, parallel agents for `[P]` tasks |
+| Finish | `ship` | verify → multi-agent review → archive → update brain |
+| Review a branch | `review` | `delivery-review` (1, 2 or 5–8 reviewers, chosen with you) |
+| Check project memory | `brain` | brain status and summary; asks whether to re-read the repo if it is stale |
 | Typos, formatting, pure refactors | just ask | no OpenSpec needed |
 
 ## The flow
 
 ```
 0. project-setup (once)  ──► AGENTS.local.md + brain.md + tool-local settings
-1. "nuevo change: X"
+1. spec X
 2. Explore      code-explorer (+ architect) in parallel        0–2 agents
 3. Propose      openspec-propose: proposal/specs/design/tasks  0 agents
 4. ⛔ STOP      human approves the spec
@@ -128,14 +128,14 @@ Typical task: **1–9 agents total**, depending on the review level. Code itself
 ## Tiny example
 
 ```
-You:    prepara este proyecto
+You:    setup
 Claude: Next.js 15 + Prisma + Postgres detected. Specs: in repo or private store?
         Frontend detected: enable Modern Web Guidance?
 You:    store privado, sí
 Claude: Created AGENTS.local.md, brain.md, Claude local settings, store "acme-shop".
         git status clean.
 
-You:    nuevo change: los usuarios pueden marcar productos como favoritos
+You:    spec users can mark products as favorites
 Claude: [code-explorer maps products + auth]
         Change "add-product-favorites": 2 requirements, 5 scenarios
         (add, remove, list, unauthenticated → 401, duplicate → idempotent), 6 tasks (2 [P]).

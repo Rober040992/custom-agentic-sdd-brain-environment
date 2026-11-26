@@ -16,7 +16,22 @@ Respuestas cortas y simples. Respóndeme en español; código, commits, nombres 
 - Cada proyecto tiene `.agents/brain.md` (skill `cerebro`): un mapa local con solo punteros (qué es, cómo va, dónde está cada cosa).
 - Consúltalo SIEMPRE antes de explorar o leer el disco; ve directo a las rutas que indica.
 - Mantenlo al día: tras cada change o cambio estructural, actualiza las secciones afectadas y su `commit=`. Si está muy desalineado, pregunta si releer el proyecto.
-- "lee cerebro" = acción manual de la skill `cerebro`.
+- `brain` (o "lee cerebro") = acción manual de la skill `cerebro`.
+
+## Comandos cortos
+
+Si mi mensaje es (o empieza por) una de estas palabras, ejecuta la acción:
+
+| Palabra | Acción |
+|---|---|
+| `setup` | skill `project-setup` |
+| `spec <idea>` | skill `sdd`: explorar → proponer → parar para mi aprobación |
+| `build` | skill `sdd`, fase 2: implementar el change aprobado con TDD |
+| `ship` | skill `sdd`, fases 3-4: verificar → revisar → archivar → actualizar cerebro |
+| `review` | skill `delivery-review` sobre la rama actual |
+| `brain` | skill `cerebro`: estado y resumen |
+
+Las frases en español equivalentes también valen.
 
 ## Spec-Driven Development con OpenSpec (obligatorio)
 

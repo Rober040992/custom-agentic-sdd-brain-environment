@@ -1,6 +1,6 @@
 ---
 name: project-setup
-description: Adapt the coding agent to the current project with a private, per-project overlay (AGENTS.local.md, brain, tool-local settings, OpenSpec in-repo or in a private store) that never touches the client repo or other projects. Use when entering a new project/repo, or when the user says "prepara este proyecto", "project setup", "adapta el agente a este repo", "inicializa openspec".
+description: Adapt the coding agent to the current project with a private, per-project overlay (AGENTS.local.md, brain, tool-local settings, OpenSpec in-repo or in a private store) that never touches the client repo or other projects. Use when entering a new project/repo, or when the user says "setup", "prepara este proyecto", "project setup", "adapta el agente a este repo", "inicializa openspec".
 ---
 
 # Project setup (capa privada por proyecto)

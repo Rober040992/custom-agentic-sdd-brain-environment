@@ -1,6 +1,6 @@
 ---
 name: sdd
-description: Orchestrates the full Spec-Driven Development cycle with OpenSpec and subagents — explore, propose, human approval gate, TDD implementation, verify, multi-agent review, archive, commit/PR. Use when the user asks to build a feature, fix a bug or change behavior in a repo that has an openspec/ directory, or says "sdd", "nuevo change", "implementa el change", "cierra el change".
+description: Orchestrates the full Spec-Driven Development cycle with OpenSpec and subagents — explore, propose, human approval gate, TDD implementation, verify, multi-agent review, archive, commit/PR. Use when the user asks to build a feature, fix a bug or change behavior in a repo that has an openspec/ directory, or says "spec <idea>", "build", "ship", "sdd" (also "nuevo change", "implementa el change", "cierra el change").
 ---
 
 # SDD: ciclo completo con OpenSpec

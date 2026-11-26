@@ -51,22 +51,22 @@ Hooks (Enter = yes):
 
 **4. Restart your tools.** In Codex, run `/hooks` once and trust the new hooks.
 
-**5. In each project, run `prepara este proyecto` once.**
+**5. In each project, type `setup` once.**
 
 > Keep the clone where it is: the tools read it through symlinks. If you move it, run `./install.sh` again.
 
 ## Daily use
 
-Talk to the agent in plain words (the trigger phrases are in Spanish):
+Type one word. A normal day goes `setup` → `spec` → `build` → `ship`.
 
-| Say | What happens |
+| Type | What happens |
 |---|---|
-| `prepara este proyecto` | One-time setup: detects the stack, asks where specs live, creates the private notes and the brain |
-| `nuevo change: <idea>` | Explore → write the spec → **stop and wait for your approval** |
-| `implementa el change` | Task by task: failing test → code → green |
-| `cierra el change` | Real checks (types, lint, tests, build) → review → archive → update the brain |
-| `revisa la rama` | Reviews the current branch with 1, 2 or 5–8 agents, chosen with you |
-| `lee cerebro` | Shows the project memory and whether it is up to date |
+| `setup` | One-time setup: detects the stack, asks where specs live, creates the private notes and the brain |
+| `spec <idea>` | Explore → write the spec → **stop and wait for your approval** |
+| `build` | Task by task: failing test → code → green |
+| `ship` | Real checks (types, lint, tests, build) → review → archive → update the brain |
+| `review` | Reviews the current branch with 1, 2 or 5–8 agents, chosen with you |
+| `brain` | Shows the project memory and whether it is up to date |
 
 Typos, formatting and pure refactors don't need a spec: just ask.
 
@@ -114,13 +114,13 @@ What each tool gets:
 | Block force-push / merge | ✓ | ✓ | ✓ |
 | Block secret files | hook | hook | plugin + permissions |
 | Format on edit | hook | hook | plugin |
-| Brain check at start | hook | hook | on demand (`lee cerebro`) |
+| Brain check at start | hook | hook | on demand (`brain`) |
 
 Files that tools or other apps also write (`~/.claude/settings.json`, `~/.codex/hooks.json`, `opencode.jsonc`) are **merged**, never replaced. Anything replaced is backed up to `~/.agents/backups/<date>/`.
 
 ## Inside a client project
 
-`prepara este proyecto` creates private files and hides them with `.git/info/exclude`, so the client's repo and its `.gitignore` are untouched:
+`setup` creates private files and hides them with `.git/info/exclude`, so the client's repo and its `.gitignore` are untouched:
 
 ```
 <project>/

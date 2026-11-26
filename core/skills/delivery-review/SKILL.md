@@ -1,6 +1,6 @@
 ---
 name: delivery-review
-description: Multi-agent pre-merge review of the current branch diff — runs spec-compliance, code quality, security, silent-failure, test-coverage and stack-specific reviewers in parallel, then deduplicates and ranks findings. Use before committing/opening a PR, at the end of an OpenSpec change, or when the user says "revisa la rama", "review de entrega", "delivery review".
+description: Multi-agent pre-merge review of the current branch diff — runs spec-compliance, code quality, security, silent-failure, test-coverage and stack-specific reviewers in parallel, then deduplicates and ranks findings. Use before committing/opening a PR, at the end of an OpenSpec change, or when the user says "review", "revisa la rama", "review de entrega", "delivery review".
 ---
 
 # Delivery review (multiagente)

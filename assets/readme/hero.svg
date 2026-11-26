@@ -29,13 +29,13 @@
     <circle cx="66" cy="24" r="6" fill="#3A3F47"/>
     <line x1="0" y1="46" x2="544" y2="46" stroke="#262A31" stroke-width="2"/>
 
-    <text x="26" y="84" font-size="20" fill="#F5A524">❯ <tspan fill="#F2EFE8">nuevo change: favorites</tspan></text>
+    <text x="26" y="84" font-size="20" fill="#F5A524">❯ <tspan fill="#F2EFE8">spec favorites</tspan></text>
     <text x="26" y="116" font-size="20" fill="#7D848F">  spec · 5 scenarios · 6 tasks</text>
 
     <rect x="22" y="132" width="236" height="34" rx="8" fill="#2A1416" stroke="#E5484D" stroke-width="2"/>
     <text x="36" y="156" font-size="20" fill="#FF8A8E" font-weight="700">⛔ waiting for OK</text>
 
-    <text x="26" y="200" font-size="20" fill="#F5A524">❯ <tspan fill="#F2EFE8">implementa el change</tspan></text>
+    <text x="26" y="200" font-size="20" fill="#F5A524">❯ <tspan fill="#F2EFE8">build</tspan></text>
     <text x="26" y="232" font-size="20" fill="#3FB950">  ✓ tasks 6/6</text>
     <text x="236" y="232" font-size="20" fill="#3FB950">✓ tests 42/42</text>
     <text x="26" y="264" font-size="20" fill="#3FB950">  ✓ review: 1 HIGH fixed</text>

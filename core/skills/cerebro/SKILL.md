@@ -1,6 +1,6 @@
 ---
 name: cerebro
-description: Create, read, check and update the project's brain (.agents/brain.md) — a local, pointer-only map of what the project is, how it works and where things live, so the agent doesn't re-read the repo every session. Use when the user says "lee cerebro", "actualiza cerebro", "crea cerebro", when a session-start check reports the brain missing/outdated, or after a change alters structure, flows or conventions.
+description: Create, read, check and update the project's brain (.agents/brain.md) — a local, pointer-only map of what the project is, how it works and where things live, so the agent doesn't re-read the repo every session. Use when the user says "brain", "lee cerebro", "actualiza cerebro", "crea cerebro", when a session-start check reports the brain missing/outdated, or after a change alters structure, flows or conventions.
 ---
 
 # Cerebro del proyecto
@@ -38,7 +38,7 @@ description: Create, read, check and update the project's brain (.agents/brain.m
 
 ## Acciones
 
-**"lee cerebro"** (manual):
+**`brain` / "lee cerebro"** (manual):
 1. Lee `.agents/brain.md`. Si no existe → ofrece crearlo.
 2. Comprueba si está al día: `git diff --name-only <commit> HEAD` (ignora `.agents/` y `.claude/`) y `git status --porcelain`.
 3. Responde en ≤5 líneas: estado (al día / N ficheros cambiados) y resumen. Si hay muchos cambios o el commit no existe → pregunta si releer el proyecto.
@@ -55,4 +55,4 @@ description: Create, read, check and update the project's brain (.agents/brain.m
 - Antes de explorar el disco, consulta el cerebro y ve directo a las rutas que indica.
 - Si una ruta del cerebro ya no existe → corrige el cerebro y avisa en una línea.
 - Si el desajuste es grande (estructura distinta, más de ~60 ficheros cambiados) → pregunta: "¿Releo el proyecto para realinear el cerebro?"
-- Si la herramienta no tiene comprobación automática al iniciar sesión, haz el paso 2 de "lee cerebro" al empezar a trabajar en el proyecto.
+- Si la herramienta no tiene comprobación automática al iniciar sesión, haz el paso 2 de `brain` al empezar a trabajar en el proyecto.
