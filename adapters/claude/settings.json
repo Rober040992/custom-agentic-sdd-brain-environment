@@ -1,0 +1,106 @@
+{
+  "env": {
+    "OPENSPEC_TELEMETRY": "0"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(openspec list *)",
+      "Bash(openspec show *)",
+      "Bash(openspec status *)",
+      "Bash(openspec validate *)",
+      "Bash(openspec context *)",
+      "Bash(openspec instructions *)",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git show *)",
+      "Bash(git branch *)",
+      "Bash(git merge-base *)",
+      "Bash(gh pr view *)",
+      "Bash(gh pr diff *)",
+      "Bash(gh pr checks *)",
+      "Bash(gh run view *)",
+      "Bash(npm test *)",
+      "Bash(npm run test *)",
+      "Bash(npm run lint *)",
+      "Bash(npm run typecheck *)",
+      "Bash(pnpm test *)",
+      "Bash(pnpm lint *)",
+      "Bash(pnpm typecheck *)",
+      "Bash(npx tsc --noEmit *)",
+      "Bash(npx vitest run *)",
+      "Bash(npx jest *)"
+    ],
+    "deny": [
+      "Read(**/.env)",
+      "Read(**/.env.local)",
+      "Read(**/.env.*.local)",
+      "Read(**/.env.production)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)",
+      "Bash(git push --force *)",
+      "Bash(git push -f *)",
+      "Bash(gh pr merge *)"
+    ],
+    "ask": [
+      "Bash(psql *)",
+      "Bash(pg_dump *)",
+      "Bash(pg_restore *)",
+      "Bash(mysql *)",
+      "Bash(mongosh *)",
+      "Bash(mongo *)",
+      "Bash(redis-cli *)",
+      "Bash(sqlite3 *)",
+      "Bash(*prisma migrate *)",
+      "Bash(*prisma db *)",
+      "Bash(*prisma studio*)",
+      "Bash(*drizzle-kit *)",
+      "Bash(*typeorm *)",
+      "Bash(*knex *)",
+      "Bash(*sequelize *)",
+      "Bash(supabase db *)",
+      "Bash(*npm run db*)",
+      "Bash(*pnpm db*)",
+      "Bash(*npm run migrate*)",
+      "Bash(*pnpm migrate*)",
+      "Bash(*seed*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/protect-secrets.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/format-prettier.sh 2>/dev/null || true",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/brain-check.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

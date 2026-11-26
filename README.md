@@ -2,7 +2,7 @@
   <img src="./assets/readme/hero.svg" width="100%" alt="agentic sdd brain: a Claude Code harness. A session shows a new change turned into a spec, a stop waiting for human approval, then implementation with all tasks, tests and review passing.">
 </p>
 
-A personal **Claude Code** setup for professional delivery on client projects. Claude writes a spec, **waits for your OK**, codes test-first, gets reviewed by parallel agents and remembers each project, all without leaving a trace in the client's repo.
+A personal coding-agent setup for professional delivery on client projects: **one repo, symlinked into each tool** (Claude Code today, Codex next). The agent writes a spec, **waits for your OK**, codes test-first, gets reviewed by parallel agents and remembers each project, all without leaving a trace in the client's repo.
 
 ## Why
 
@@ -37,29 +37,33 @@ The code itself is written by the main Claude, which has the full context. Agent
 |---|---|
 | 📐 **OpenSpec** | Spec-Driven Development: proposal, scenarios, design, tasks |
 | 🤖 **14 agents** | Explorer, architect, TDD guide, build fixers and 8 reviewers |
-| 🧠 **Brain** | `.claude/brain.md`: pointers only, freshness checked against git on every session start |
-| 🧩 **Private overlay** | `CLAUDE.local.md` + `settings.local.json`, hidden through `.git/info/exclude` |
+| 🧠 **Brain** | `.agents/brain.md`: pointers only, freshness checked against git on every session start |
+| 🧩 **Private overlay** | `AGENTS.local.md` + each tool's local settings, hidden through `.git/info/exclude` |
 | 🛡️ **Safety rails** | Asks before any DB access (CLI or MCP) · blocks secrets, force-push and merges · auto-format |
 
 ```
-~/.claude/       global defaults: rules, agents, skills, hooks
-<project>/       CLAUDE.md + team conventions        ← always wins
-<project>/       CLAUDE.local.md · .claude/brain.md  ← private, never committed
+core/              tool-neutral: AGENTS.md, skills, agents, rules
+adapters/claude/   CLAUDE.md, settings (merged), hooks
+install.sh         symlinks the repo into ~/.agents and ~/.claude
+<project>/         team rules + conventions               ← always wins
+<project>/         AGENTS.local.md · .agents/brain.md     ← private, never committed
 ```
 
 ## Rebuild it anywhere
 
-Give [`docs/rober-agentic-environment.md`](docs/rober-agentic-environment.md) to any Claude Code session and say:
+```bash
+git clone https://github.com/Rober040992/custom-agentic-sdd-brain-environment.git ~/Desktop/custom-claude-env
+cd ~/Desktop/custom-claude-env && ./install.sh --tools claude
+```
 
-> *Build this environment on my machine following the Rebuild Instructions.*
-
-It contains the full explanation and every file verbatim.
+Edit files in the repo; every tool sees the change. Full explanation and prerequisites in [`docs/rober-agentic-environment.md`](docs/rober-agentic-environment.md).
 
 ## Limits
 
 - Brain freshness is tracked against git commits and uncommitted files, not editor buffers.
 - DB protection is pattern-based: custom scripts with unusual names rely on the written rule, not on a hard block.
 - Built for a TypeScript / React / Node default stack; other stacks use the project's own rules.
+- Codex adapter is in progress: hooks and subagents differ per tool, so some rails are written rules there instead of hard blocks.
 
 ---
 
