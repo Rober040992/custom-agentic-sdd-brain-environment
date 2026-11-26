@@ -1,0 +1,18 @@
+# Codex rules for the agentic SDD brain environment.
+# Databases: always ask. Destructive git/gh: blocked.
+def ask(cmds):
+    for c in cmds:
+        prefix_rule(pattern = c, decision = "prompt", justification = "Database access: confirm target and impact first.")
+
+ask([
+    ["psql"], ["pg_dump"], ["pg_restore"], ["mysql"], ["mongosh"], ["mongo"], ["redis-cli"], ["sqlite3"],
+    ["npx", "prisma", "migrate"], ["npx", "prisma", "db"], ["npx", "prisma", "studio"],
+    ["pnpm", "prisma", "migrate"], ["pnpm", "prisma", "db"],
+    ["npx", "drizzle-kit"], ["pnpm", "drizzle-kit"], ["npx", "typeorm"], ["npx", "knex"], ["npx", "sequelize"],
+    ["supabase", "db"],
+    ["npm", "run", "db"], ["npm", "run", "migrate"], ["npm", "run", "seed"],
+    ["pnpm", "db"], ["pnpm", "migrate"], ["pnpm", "seed"],
+])
+
+prefix_rule(pattern = ["git", "push", ["--force", "-f", "--force-with-lease"]], decision = "forbidden", justification = "Never force-push.")
+prefix_rule(pattern = ["gh", "pr", "merge"], decision = "forbidden", justification = "Merges are done by a human.")

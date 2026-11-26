@@ -1,6 +1,6 @@
 # Rober's Agentic Environment
 
-> A personal, tool-agnostic coding-agent setup (Claude Code today, Codex next) for professional software delivery: **Spec-Driven Development (OpenSpec) + multi-agent review + a per-project "brain" + safety rails**, adapted to each client project without leaving traces in it.
+> A personal, tool-agnostic coding-agent setup (Claude Code and Codex; OpenCode and Cursor next) for professional software delivery: **Spec-Driven Development (OpenSpec) + multi-agent review + a per-project "brain" + safety rails**, adapted to each client project without leaving traces in it.
 
 **This file has two uses:**
 1. **Documentation**: what the environment is, how it is built, how and when to use it, and why.
@@ -41,13 +41,16 @@ custom-claude-env/  (this repo — single source of truth, symlinked into each t
 │   │                               + 17 patterns (ECC)         → each tool's skills dir
 │   ├── agents/                     14 specialist roles (ECC)
 │   ├── rules/typescript, react     path-scoped language rules
+│   ├── hooks/                      protect-secrets, format, brain-check (Claude + Codex) → ~/.agents/hooks
 │   └── vendor/modern-web-guidance  opt-in per project          → ~/.agents/vendor/
 ├── adapters/claude/                CLAUDE-SPECIFIC
 │   ├── CLAUDE.md                   "@~/.agents/AGENTS.md" + Claude notes → ~/.claude/CLAUDE.md
-│   ├── settings.json               permissions + hooks (MERGED, never linked)
-│   └── hooks/                      protect-secrets, format-prettier, brain-check
-├── adapters/codex/                 (phase 2)
-└── install.sh                      ./install.sh --tools claude[,codex]
+│   └── settings.json               permissions (MERGED, never linked)
+├── adapters/codex/                 CODEX-SPECIFIC
+│   └── rules/agentic-env.rules     DB → prompt, force-push/merge → forbidden → ~/.codex/rules/
+│                                   core/AGENTS.md → ~/.codex/AGENTS.md · skills → ~/.agents/skills
+│                                   agents → ~/.codex/agents/*.toml (generated; re-run install after editing one)
+└── install.sh                      detects installed tools, links the repo, asks which hooks to enable
 
 ~/.agents/skills/openspec-*         12 official OpenSpec skills (installed by openspec)
 
@@ -111,7 +114,7 @@ Typical task: **1–9 agents total**, depending on the review level. Code itself
 - Sections: **What it is · How it works · Where (concept → path) · Status**.
 - First line stores `<!-- brain: commit=<sha> date=<date> -->`.
 - Claude auto-loads it through `@.agents/brain.md` in `CLAUDE.local.md`; other tools read it per the global rule.
-- The `SessionStart` hook (Claude; other tools check on demand) compares the stored commit with `HEAD`:
+- The `SessionStart` hook (Claude and Codex, if enabled) compares the stored commit with `HEAD`:
   - ✅ up to date → use the brain before reading the disk
   - ⚠️ N files changed → update the affected sections when working there
   - ❌ more than 60 files changed, or the commit is missing → ask the user whether to re-read the project
@@ -165,10 +168,10 @@ mkdir -p /tmp/os-boot && cd /tmp/os-boot && git init -q \
 ## Step 3: Clone and install
 
 ```bash
-git clone https://github.com/Rober040992/custom-agentic-sdd-brain-environment.git ~/Desktop/custom-claude-env
-cd ~/Desktop/custom-claude-env
+git clone https://github.com/Rober040992/custom-agentic-sdd-brain-environment.git
+cd custom-agentic-sdd-brain-environment
 ./install.sh --dry-run          # preview
-./install.sh --tools claude     # symlinks + settings merge
+./install.sh                    # detects installed tools; or --tools claude,codex
 ```
 
 The repo must stay where it was cloned: the tools read it through symlinks. Edit files in the repo; changes apply at the next session.
@@ -177,8 +180,10 @@ The repo must stay where it was cloned: the tools read it through symlinks. Edit
 
 - `ls -l ~/.claude/CLAUDE.md ~/.agents/AGENTS.md` → both are links into the repo.
 - `ls ~/.claude/skills | wc -l` → 21 links into the repo + 12 openspec.
-- `echo '{"tool_input":{"file_path":"/x/.env"}}' | ~/.claude/hooks/protect-secrets.sh` → `"deny"`.
+- `echo '{"tool_input":{"file_path":"/x/.env"}}' | ~/.agents/hooks/protect-secrets.sh` → `"deny"`.
 - `claude -p "First sentence of your Databases section?"` → quotes the global rule.
+- Codex: `codex execpolicy check --rules ~/.codex/rules/agentic-env.rules psql` → `prompt`.
+- Hooks: `./install.sh hooks` re-asks which to enable (saved in `~/.agents/hooks.conf`); `--hooks all|none|secrets,format,brain` skips the questions. Codex: open `/hooks` once to trust them.
 - Restart the tool.
 
 ## Provenance

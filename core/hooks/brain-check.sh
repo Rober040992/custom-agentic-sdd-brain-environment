@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# SessionStart: tell the agent whether the project's brain (.agents/brain.md) is fresh.
+# SessionStart (Claude, Codex): tell the agent whether the project's brain (.agents/brain.md) is fresh.
 root=$(git rev-parse --show-toplevel 2>/dev/null) || exit 0
 brain="$root/.agents/brain.md"
 ignore='^(\.agents|\.claude)/'
