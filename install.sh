@@ -3,7 +3,7 @@
 #
 #   ./install.sh                  detect installed tools, link everything, ask which hooks to enable
 #   ./install.sh hooks            only (re)choose hooks
-#   --tools claude,codex          pick tools instead of detecting them
+#   --tools claude,codex,opencode pick tools instead of detecting them
 #   --hooks all|none|secrets,format,brain   choose hooks without asking
 #   --dry-run                     show what would change
 #
@@ -117,6 +117,32 @@ common() {
   link "$REPO/core/AGENTS.md" "$HOME/.agents/AGENTS.md"
   link "$REPO/core/hooks" "$HOOKS_DIR"
   link "$REPO/core/vendor/modern-web-guidance" "$HOME/.agents/vendor/modern-web-guidance"
+  # ~/.agents/skills is the shared skills dir (Codex and OpenCode read it natively)
+  for d in "$REPO"/core/skills/*/; do link "${d%/}" "$HOME/.agents/skills/$(basename "$d")"; done
+  prune "$HOME/.agents/skills"
+}
+
+# gen_agents <dir> <ext>: convert core/agents/*.md to another tool's agent format
+gen_agents() {
+  [ "$DRY" = 1 ] && { echo "  would: generate agents in ${1/#$HOME/~}"; return; }
+  mkdir -p "$1"
+  python3 -I - "$REPO/core/agents" "$1" "$2" <<'PY'
+import sys, pathlib, re, json
+src, dst, fmt = pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2]), sys.argv[3]
+note = "Generated from core/agents by install.sh. Edit the .md in the repo."
+for md in sorted(src.glob("*.md")):
+    m = re.match(r"^---\n(.*?)\n---\n(.*)$", md.read_text(), re.S)
+    meta, body = (m.group(1), m.group(2).strip()) if m else ("", md.read_text())
+    d = re.search(r"^description:\s*(.*)$", meta, re.M)
+    desc = d.group(1).strip().strip('"') if d else md.stem
+    if fmt == "toml":   # Codex
+        out = f"# {note}\nname = {json.dumps(md.stem)}\ndescription = {json.dumps(desc)}\ndeveloper_instructions = {json.dumps(body)}\n"
+        (dst / f"{md.stem}.toml").write_text(out)
+    else:               # OpenCode
+        out = f"---\ndescription: {json.dumps(desc)}\nmode: subagent\n---\n<!-- {note} -->\n\n{body}\n"
+        (dst / f"{md.stem}.md").write_text(out)
+print(f"  generated {len(list(src.glob('*.md')))} agents in {str(dst).replace(str(pathlib.Path.home()), '~')}")
+PY
 }
 
 claude() {
@@ -144,27 +170,11 @@ claude_hooks() { merge_hooks "$HOME/.claude/settings.json" "Edit|Write"; }
 
 codex() {
   local X="$HOME/.codex"
-  echo "codex → ~/.codex + ~/.agents/skills"
+  echo "codex → ~/.codex"
   link "$REPO/core/AGENTS.md" "$X/AGENTS.md"
-  for d in "$REPO"/core/skills/*/; do link "${d%/}" "$HOME/.agents/skills/$(basename "$d")"; done
   for f in "$REPO"/adapters/codex/rules/*.rules; do link "$f" "$X/rules/$(basename "$f")"; done
-  prune "$HOME/.agents/skills" "$X/rules"
-  # Codex agents are TOML: generated from core/agents/*.md (re-run install.sh after editing an agent).
-  [ "$DRY" = 1 ] && { echo "  would: generate ~/.codex/agents/*.toml"; return; }
-  mkdir -p "$X/agents"
-  python3 -I - "$REPO/core/agents" "$X/agents" <<'PY'
-import sys, pathlib, re, json
-src, dst = map(pathlib.Path, sys.argv[1:])
-for md in sorted(src.glob("*.md")):
-    text = md.read_text()
-    m = re.match(r"^---\n(.*?)\n---\n(.*)$", text, re.S)
-    meta, body = (m.group(1), m.group(2)) if m else ("", text)
-    desc = re.search(r"^description:\s*(.*)$", meta, re.M)
-    desc = desc.group(1).strip().strip('"') if desc else md.stem
-    out = f'name = {json.dumps(md.stem)}\ndescription = {json.dumps(desc)}\ndeveloper_instructions = {json.dumps(body.strip())}\n'
-    (dst / f"{md.stem}.toml").write_text("# Generated from core/agents by install.sh. Edit the .md in the repo.\n" + out)
-print(f"  generated {len(list(src.glob('*.md')))} agents in ~/.codex/agents")
-PY
+  prune "$X/rules"
+  gen_agents "$X/agents" toml   # re-run install.sh after editing an agent
 }
 
 codex_hooks() {
@@ -173,15 +183,35 @@ codex_hooks() {
   return 0
 }
 
+opencode() {
+  local O="$HOME/.config/opencode" F
+  echo "opencode → ~/.config/opencode"
+  link "$REPO/core/AGENTS.md" "$O/AGENTS.md"
+  for f in "$REPO"/adapters/opencode/plugins/*.js; do link "$f" "$O/plugins/$(basename "$f")"; done
+  prune "$O/plugins"
+  gen_agents "$O/agents" md     # re-run install.sh after editing an agent
+  # opencode.json(c) is user config: merge our permission rules, never link.
+  F="$O/opencode.jsonc"; [ -f "$F" ] || F="$O/opencode.json"
+  [ -f "$F" ] || echo '{"$schema":"https://opencode.ai/config.json"}' > "$F"
+  local tmp; tmp="$(mktemp)"
+  if jq -s '.[0] * .[1]' "$F" "$REPO/adapters/opencode/opencode.json" > "$tmp" 2>/dev/null; then
+    write_if_changed "$F" "$tmp"
+  else
+    rm -f "$tmp"; echo "  ! ${F/#$HOME/~} has comments; merge adapters/opencode/opencode.json by hand"
+  fi
+}
+
+opencode_hooks() { echo "  opencode: plugin reads ~/.agents/hooks.conf (no session-start hook in OpenCode)"; }
+
 # ---------- main ----------
 
 if [ -z "$TOOLS" ]; then
-  for t in claude codex; do command -v "$t" >/dev/null && TOOLS="$TOOLS${TOOLS:+,}$t"; done
-  [ -z "$TOOLS" ] && { echo "no supported tool found (claude, codex)"; exit 1; }
+  for t in claude codex opencode; do command -v "$t" >/dev/null && TOOLS="$TOOLS${TOOLS:+,}$t"; done
+  [ -z "$TOOLS" ] && { echo "no supported tool found (claude, codex, opencode)"; exit 1; }
   echo "detected: $TOOLS"
 fi
 IFS=',' read -ra list <<< "$TOOLS"
-for t in "${list[@]}"; do case "$t" in claude|codex) ;; *) echo "unknown tool: $t"; exit 1 ;; esac; done
+for t in "${list[@]}"; do case "$t" in claude|codex|opencode) ;; *) echo "unknown tool: $t"; exit 1 ;; esac; done
 
 if [ "$MODE" = all ]; then
   common

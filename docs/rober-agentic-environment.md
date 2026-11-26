@@ -1,6 +1,6 @@
 # Rober's Agentic Environment
 
-> A personal, tool-agnostic coding-agent setup (Claude Code and Codex; OpenCode and Cursor next) for professional software delivery: **Spec-Driven Development (OpenSpec) + multi-agent review + a per-project "brain" + safety rails**, adapted to each client project without leaving traces in it.
+> A personal, tool-agnostic coding-agent setup (Claude Code, Codex and OpenCode) for professional software delivery: **Spec-Driven Development (OpenSpec) + multi-agent review + a per-project "brain" + safety rails**, adapted to each client project without leaving traces in it.
 
 **This file has two uses:**
 1. **Documentation**: what the environment is, how it is built, how and when to use it, and why.
@@ -41,7 +41,7 @@ custom-claude-env/  (this repo — single source of truth, symlinked into each t
 │   │                               + 17 patterns (ECC)         → each tool's skills dir
 │   ├── agents/                     14 specialist roles (ECC)
 │   ├── rules/typescript, react     path-scoped language rules
-│   ├── hooks/                      protect-secrets, format, brain-check (Claude + Codex) → ~/.agents/hooks
+│   ├── hooks/                      protect-secrets, format, brain-check (all tools) → ~/.agents/hooks
 │   └── vendor/modern-web-guidance  opt-in per project          → ~/.agents/vendor/
 ├── adapters/claude/                CLAUDE-SPECIFIC
 │   ├── CLAUDE.md                   "@~/.agents/AGENTS.md" + Claude notes → ~/.claude/CLAUDE.md
@@ -50,6 +50,10 @@ custom-claude-env/  (this repo — single source of truth, symlinked into each t
 │   └── rules/agentic-env.rules     DB → prompt, force-push/merge → forbidden → ~/.codex/rules/
 │                                   core/AGENTS.md → ~/.codex/AGENTS.md · skills → ~/.agents/skills
 │                                   agents → ~/.codex/agents/*.toml (generated; re-run install after editing one)
+├── adapters/opencode/              OPENCODE-SPECIFIC
+│   ├── opencode.json               permissions: DB → ask, secrets read/force-push/merge → deny (MERGED)
+│   └── plugins/agentic-env.js      runs the shared hooks (secrets, format) → ~/.config/opencode/plugins/
+│                                   core/AGENTS.md → ~/.config/opencode/AGENTS.md · agents generated as .md
 └── install.sh                      detects installed tools, links the repo, asks which hooks to enable
 
 ~/.agents/skills/openspec-*         12 official OpenSpec skills (installed by openspec)
@@ -183,6 +187,7 @@ The repo must stay where it was cloned: the tools read it through symlinks. Edit
 - `echo '{"tool_input":{"file_path":"/x/.env"}}' | ~/.agents/hooks/protect-secrets.sh` → `"deny"`.
 - `claude -p "First sentence of your Databases section?"` → quotes the global rule.
 - Codex: `codex execpolicy check --rules ~/.codex/rules/agentic-env.rules psql` → `prompt`.
+- OpenCode: `opencode debug config` lists `agentic-env.js` and the agents.
 - Hooks: `./install.sh hooks` re-asks which to enable (saved in `~/.agents/hooks.conf`); `--hooks all|none|secrets,format,brain` skips the questions. Codex: open `/hooks` once to trust them.
 - Restart the tool.
 

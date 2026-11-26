@@ -1,0 +1,15 @@
+{
+  "permission": {
+    "bash": {
+      "psql *": "ask", "pg_dump *": "ask", "pg_restore *": "ask", "mysql *": "ask", "mongosh *": "ask", "mongo *": "ask",
+      "redis-cli *": "ask", "sqlite3 *": "ask",
+      "*prisma migrate*": "ask", "*prisma db*": "ask", "*prisma studio*": "ask", "*drizzle-kit*": "ask",
+      "*typeorm*": "ask", "*knex*": "ask", "*sequelize*": "ask", "supabase db*": "ask",
+      "*npm run db*": "ask", "*pnpm db*": "ask", "*npm run migrate*": "ask", "*pnpm migrate*": "ask", "*seed*": "ask",
+      "git push --force*": "deny", "git push -f*": "deny", "gh pr merge*": "deny"
+    },
+    "read": {
+      "*.env": "deny", "*.env.local": "deny", "*.env.production": "deny", "*.pem": "deny", "*.key": "deny"
+    }
+  }
+}
