@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="330" viewBox="0 0 1200 330" role="img" aria-labelledby="title desc">
   <title id="title">The flow of one task</title>
-  <desc id="desc">Six stages: explore (0–2 agents), spec (OpenSpec), human approval gate, TDD code written by the main Claude, verify with real gates, review with 1, 2 or 5–8 agents, then archive and update the brain.</desc>
+  <desc id="desc">Six stages: explore (0–2 agents), spec (OpenSpec), human approval gate, TDD code written by the main agent, verify with real gates, review with 1, 2 or 5–8 agents, then archive and update the brain.</desc>
 
   <rect width="1200" height="330" rx="24" fill="#0B0D10"/>
 

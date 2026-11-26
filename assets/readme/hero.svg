@@ -1,13 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="440" viewBox="0 0 1200 440" role="img" aria-labelledby="title desc">
   <title id="title">custom-agentic-sdd-brain-environment</title>
-  <desc id="desc">A personal Claude Code harness: spec first, human approval gate, test-driven code, multi-agent review and a per-project brain. Right side shows a real session using the harness phrases.</desc>
+  <desc id="desc">A personal harness for coding agents (Claude Code, Codex, OpenCode): spec first, human approval gate, test-driven code, multi-agent review and a per-project brain. Right side shows a real session using the harness phrases.</desc>
 
   <rect width="1200" height="440" rx="24" fill="#0B0D10"/>
   <line x1="56" y1="76" x2="1144" y2="76" stroke="#22262D" stroke-width="2"/>
 
   <!-- metadata row -->
   <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18" fill="#7D848F">
-    <text x="56" y="56">CLAUDE CODE · HARNESS</text>
+    <text x="56" y="56">CLAUDE CODE · CODEX · OPENCODE</text>
     <text x="1144" y="56" text-anchor="end">spec → gate → code → review</text>
   </g>
 
@@ -16,7 +16,7 @@
     <text x="56" y="160" font-size="64" font-weight="800" fill="#F2EFE8" letter-spacing="-1.5">agentic</text>
     <text x="56" y="232" font-size="64" font-weight="800" fill="#F5A524" letter-spacing="-1.5">sdd</text>
     <text x="176" y="232" font-size="64" font-weight="800" fill="#F2EFE8" letter-spacing="-1.5">brain</text>
-    <text x="56" y="290" font-size="24" fill="#C9CCD1">Claude Code that ships like a senior engineer:</text>
+    <text x="56" y="290" font-size="24" fill="#C9CCD1">Coding agents that ship like a senior engineer:</text>
     <text x="56" y="324" font-size="24" fill="#C9CCD1">specs first, tests first, parallel reviews,</text>
     <text x="56" y="358" font-size="24" fill="#C9CCD1">and a memory for every project.</text>
   </g>
